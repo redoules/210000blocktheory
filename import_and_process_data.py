@@ -8,14 +8,7 @@ import plotly.offline as py
 import plotly.graph_objs as go
 import bs4 as BeautifulSoup
 
-def getprice(x):
-    try:
-        return btc_price_data.loc[x][indication]
-    except KeyError:
-        return 
-    btc_price_data["Date"] = btc_price_data.index
-    btc_price_data["theory_date"] = btc_price_data.Date.apply(lambda x: x - timedelta(days=365*4))
-    btc_price_data["theory"] = btc_price_data["theory_date"].apply(getprice)
+
 
 
 def generer_html():
@@ -36,8 +29,14 @@ def generer_html():
         btc_price_data = btc_price_data[['Open*', 'High', 'Low', 'Close**']]
         btc_price_data.columns = ['Open', 'High', 'Low', 'Close']
 
-
+    def getprice(x):
+        try:
+            return btc_price_data.loc[x][indication]
+        except KeyError:
+            return 
     btc_price_data["Date"] = btc_price_data.index
+    btc_price_data["theory_date"] = btc_price_data.Date.apply(lambda x: x - timedelta(days=365*4))
+    btc_price_data["theory"] = btc_price_data["theory_date"].apply(getprice)
 
     # Generate historical graph 
     fig = go.Figure([
@@ -79,7 +78,7 @@ def generer_html():
 
 
     # Generate HTML page
-    soup = BeautifulSoup.BeautifulSoup(figind.to_html()) 
+    soup = BeautifulSoup.BeautifulSoup(figind.to_html(), "lxml") 
     math_js = soup.find("body").find("div").find_all("script")[0] #math_js extraction
     plotly_js = soup.find("body").find("div").find_all("script")[1] # plotly.js extraction
 
@@ -88,7 +87,7 @@ def generer_html():
     scriptindicator = soup.find("body").find("div").find_all("script")[2]
 
     #extraction of the chart
-    soup = BeautifulSoup.BeautifulSoup(fig.to_html())
+    soup = BeautifulSoup.BeautifulSoup(fig.to_html(), "lxml")
     divChart = soup.find("body").find("div").find("div")
     scriptChart = soup.find("body").find("div").find_all("script")[2]
 
@@ -114,3 +113,5 @@ def generer_html():
         f.write('<iframe width="1" scrolling="no" height="1" seamless="seamless" frameborder="0" src="https://analytics.redoules.synology.me/ip">')
         f.write('</body>\n')
         f.write("</html>")
+if __name__ == '__main__':
+    generer_html()
