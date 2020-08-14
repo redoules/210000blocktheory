@@ -13,9 +13,9 @@ def getprice(x):
         return btc_price_data.loc[x][indication]
     except KeyError:
         return 
-btc_price_data["Date"] = btc_price_data.index
-btc_price_data["theory_date"] = btc_price_data.Date.apply(lambda x: x - timedelta(days=365*4))
-btc_price_data["theory"] = btc_price_data["theory_date"].apply(getprice)
+    btc_price_data["Date"] = btc_price_data.index
+    btc_price_data["theory_date"] = btc_price_data.Date.apply(lambda x: x - timedelta(days=365*4))
+    btc_price_data["theory"] = btc_price_data["theory_date"].apply(getprice)
 
 
 def generer_html():
