@@ -42,7 +42,7 @@ def generer_html():
     fig = go.Figure([
         go.Scatter(x=btc_price_data['Date'], y=btc_price_data['Close'], name="price", hovertemplate = 'Price: %{y:$.2f}<extra></extra>',),
         go.Scatter(x=btc_price_data['Date'], y=btc_price_data['theory'], name ="Price 4years before", hovertemplate = 'Price 4 years before: %{y:$.2f}<extra></extra>',)])
-    fig.update_layout(xaxis=dict(range=["2018-01-01",datetime.today()]))
+    fig.update_layout(xaxis=dict(range=["2017-04-28",datetime.today()]))
     fig.update_layout(hovermode='x unified')
     fig.update_layout(
         hoverlabel=dict(
