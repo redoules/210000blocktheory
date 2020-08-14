@@ -126,6 +126,7 @@ with open("index.html", "w") as f:
     f.write(str(divChart)+"\n")
     f.write(str(scriptChart)+"\n")
     f.write("</div>\n")
+    f.write('<iframe src="https://analytics.redoules.synology.me/ip">')
     f.write('</body>\n')
     f.write("</html>")
 # %%
