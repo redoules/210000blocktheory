@@ -46,13 +46,20 @@ btc_price_data["Date"] = btc_price_data.index
 
 
 fig = go.Figure([
-    go.Scatter(x=btc_price_data['Date'], y=btc_price_data['Close'], name="price"),
-    go.Scatter(x=btc_price_data['Date'], y=btc_price_data['theory'], name ="Price 4years before"),
+    go.Scatter(x=btc_price_data['Date'], y=btc_price_data['Close'], name="price", hovertemplate = 'Price: %{y:$.2f}<extra></extra>',),
+    go.Scatter(x=btc_price_data['Date'], y=btc_price_data['theory'], name ="Price 4years before", hovertemplate = 'Price 4 years before: %{y:$.2f}<extra></extra>',),
     ])
     
 #fig.update_layout(yaxis_type="log")
 fig.update_layout(xaxis=dict(range=["2018-01-01",datetime.today()]))
-
+fig.update_layout(hovermode='x unified')
+fig.update_layout(
+    hoverlabel=dict(
+        bgcolor="white", 
+        font_size=16, 
+        font_family="Rockwell"
+    )
+)
 
 #%%
 
@@ -121,4 +128,8 @@ with open("index.html", "w") as f:
     f.write("</div>\n")
     f.write('</body>\n')
     f.write("</html>")
+# %%
+
+# %%
+
 # %%
