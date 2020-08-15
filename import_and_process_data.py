@@ -102,7 +102,7 @@ def generer_html():
         f.write(str(plotly_js)+"\n")
         f.write('</head>\n')
         f.write('<body>\n')
-        f.write('<section class="banner" style="width: 100%;padding:60px 0;text-align: center;background: #FFFFFF;color: black;"><div><h1 style="font-size: 2.8em;">210000 block theory dashboard</h1><p>The <a href="https://www.whatisbitcoin.com/what-is/210000-block-hodl-theory">210,000 block HODL theory</a> is the idea that you should hold any given bitcoin for at least 210,000 blocks from when it was transacted because as of today\'s date, there are no transactions with a lower fiat valuation 210,000 blocks after that transaction is sent.</p></div></section><hr style ="display: block;    height: 1px;    border: 0;    border-top: 1px solid #ccc;    margin: 1em 0;    padding: 0;"/>\n')
+        f.write('<section class="banner" style="width: 100%;padding:00px 0;text-align: center;background: #FFFFFF;color: black;"><div><h1 style="font-size: 2.8em;">210000 block theory dashboard</h1><p>The <a href="https://www.whatisbitcoin.com/what-is/210000-block-hodl-theory">210,000 block HODL theory</a> is the idea that you should hold any given bitcoin for at least 210,000 blocks from when it was transacted because as of today\'s date, there are no transactions with a lower fiat valuation 210,000 blocks after that transaction is sent.</p></div><hr style ="display: block;    height: 1px;    border: 0;    border-top: 1px solid #ccc;    margin: 1em 0;    padding: 0;"/></section>\n')
         f.write('<div>\n')
         f.write(str(divindicator)+"\n")
         f.write(str(scriptindicator)+"\n")
