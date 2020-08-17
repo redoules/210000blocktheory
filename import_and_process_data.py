@@ -61,7 +61,7 @@ def generer_html():
         mode = "number+delta",
         value = btc_price_data.sort_index().iloc[-1].Close,
         number = {'prefix': "$"},
-        title = {"text": "Price today<br><span style='font-size:0.8em;color:gray'>Increase in % compared to 4 years ago</span>"},
+        title = {"text": f"Price today<br><span style='font-size:0.8em;color:gray'>Increase in % compared to 4 years ago</span>"},
         delta = {'position': "bottom", 'reference': btc_price_data.sort_index().iloc[-1].theory, 'relative': True},
         domain = {'x': [0, 0.5], 'y': [0, 1]}))
 
@@ -102,10 +102,11 @@ def generer_html():
         f.write(str(plotly_js)+"\n")
         f.write('</head>\n')
         f.write('<body>\n')
-        f.write('<section class="banner" style="width: 100%;padding:00px 0;text-align: center;background: #FFFFFF;color: black;"><div><h1 style="font-size: 2.8em;">210000 blocks theory dashboard</h1><p>The <a href="https://www.whatisbitcoin.com/what-is/210000-block-hodl-theory">210,000 blocks HOLD theory</a> is the idea that you should hold any given bitcoin for at least 210,000 blocks from when it was transacted because as of today\'s date, there are no transactions with a lower fiat valuation 210,000 blocks after that transaction is sent.</p></div><hr style ="display: block;    height: 1px;    border: 0;    border-top: 1px solid #ccc;    margin: 1em 0;    padding: 0;"/></section>\n')
+        f.write('<section class="banner" style="width: 100%;padding:00px 0;text-align: center;background: #FFFFFF;color: black;"><div><h1 style="font-size: 2.8em;">210000 blocks theory dashboard</h1><p>The <a href="https://www.whatisbitcoin.com/what-is/210000-block-hodl-theory">210,000 blocks HOLD theory</a> is the idea that you should hold any given bitcoin for at least 210,000 blocks from when it was transacted because as of today\'s date, there are no transactions with a lower fiat valuation 210,000 blocks after that transaction is sent.</p><p>Dashboard updated daily.</p></div><hr style ="display: block;    height: 1px;    border: 0;    border-top: 1px solid #ccc;    margin: 1em 0;    padding: 0;"/></section>\n')
         f.write('<div>\n')
         f.write(str(divindicator)+"\n")
         f.write(str(scriptindicator)+"\n")
+        f.write(f"<span style='font-size:0.8em;color:gray'>Updated on {datetime.now().day}-{datetime.now().month}-{datetime.now().year} at {datetime.now().hour}:{datetime.now().minute} (UTC+1)</span><br>")
         f.write("</div>\n")
         f.write('<div><p>The 210000 blocks HOLD theory is valid if the red line is below the blue line !</p></div>\n')
         f.write('<div>\n')
