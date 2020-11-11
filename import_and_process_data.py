@@ -12,11 +12,9 @@ import bs4 as BeautifulSoup
 
 
 def generer_html():
-
     #Load data form coinmarketcap or kraken
-    source = "cmc"
+    source = "yahoo"
     indication = "Close"
-
     if source == "kraken":
         btc_price_data = quandl.get("BCHARTS/KRAKENEUR") #KRAKENUSD
         btc_price_data = btc_price_data[btc_price_data["Open"] != 0]
@@ -28,6 +26,14 @@ def generer_html():
         btc_price_data = btc_price_data.set_index("Date")
         btc_price_data = btc_price_data[['Open*', 'High', 'Low', 'Close**']]
         btc_price_data.columns = ['Open', 'High', 'Low', 'Close']
+    elif source == "yahoo":
+        url = f'https://query1.finance.yahoo.com/v7/finance/download/BTC-USD?period1=1410912000&period2={int(datetime.now().timestamp())}&interval=1d&filter=history&frequency=1d&includeAdjustedClose=true'
+        btc_price_data = pd.read_csv(url)
+        btc_price_data["Date"] = pd.to_datetime(btc_price_data.Date)
+        btc_price_data = btc_price_data.set_index("Date")
+        btc_price_data = btc_price_data[['Open', 'High', 'Low', 'Close']]
+        btc_price_data.columns = ['Open', 'High', 'Low', 'Close']
+
 
     def getprice(x):
         try:
@@ -119,3 +125,5 @@ def generer_html():
 
 if __name__ == '__main__':
     generer_html()
+
+# %%
