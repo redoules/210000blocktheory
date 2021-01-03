@@ -58,6 +58,19 @@ def generer_html():
         )
     )
 
+    # Generate return graph 
+    figreturn = go.Figure([
+        go.Scatter(x=btc_price_data['Date'], y=(btc_price_data['Close']-btc_price_data['theory'])/btc_price_data['theory'], name="return", hovertemplate = 'Return: %{y:%.2f}<extra></extra>',)])
+    figreturn.update_layout(xaxis=dict(range=["2018-09-18",datetime.today()]))
+    figreturn.update_layout(hovermode='x unified')
+    figreturn.update_layout(
+        hoverlabel=dict(
+            bgcolor="white", 
+            font_size=16, 
+            font_family="Rockwell"
+        )
+    )
+
     # Generate indicator graph
     btc_price_data.sort_index().iloc[-1].Close
     figind = go.Figure()
@@ -92,10 +105,15 @@ def generer_html():
     divindicator = soup.find("body").find("div").find("div")
     scriptindicator = soup.find("body").find("div").find_all("script")[2]
 
-    #extraction of the chart
+    #extraction of the price chart
     soup = BeautifulSoup.BeautifulSoup(fig.to_html(), "lxml")
     divChart = soup.find("body").find("div").find("div")
     scriptChart = soup.find("body").find("div").find_all("script")[2]
+
+    #extraction of the return chart
+    soup = BeautifulSoup.BeautifulSoup(figreturn.to_html(), "lxml")
+    divreturnChart = soup.find("body").find("div").find("div")
+    scriptreturnChart = soup.find("body").find("div").find_all("script")[2]
 
     #Creation of the final page 
 
@@ -118,6 +136,10 @@ def generer_html():
         f.write('<div>\n')
         f.write(str(divChart)+"\n")
         f.write(str(scriptChart)+"\n")
+        f.write("</div>\n")
+        f.write('<div>\n')
+        f.write(str(divreturnChart)+"\n")
+        f.write(str(scriptreturnChart)+"\n")
         f.write("</div>\n")
         f.write('<iframe width="1" scrolling="no" height="1" seamless="seamless" frameborder="0" src="https://analytics.redoules.synology.me/ip">')
         f.write('</body>\n')
